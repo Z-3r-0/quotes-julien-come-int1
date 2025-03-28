@@ -1,7 +1,8 @@
 #include "quotes.h"
 
 
-void load_from_file(char **quotes, const char *filename) {
+int load_from_file(char **quotes, const char *filename) {
+    int k = 0;
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         fprintf(stderr, "Error: Could not open file %s\n", filename);
@@ -14,9 +15,11 @@ void load_from_file(char **quotes, const char *filename) {
         buffer[strcspn(buffer, "\n")] = 0;
         quotes[index] = strdup(buffer);
         index++;
+        k++;
     }
 
     fclose(file);
+    return k;
 }
 
 void print_quote(char ** quotes, int index) {
@@ -26,4 +29,8 @@ void print_quote(char ** quotes, int index) {
 void print_random_quote(char ** quotes) {
     int index = rand() % MAX_QUOTES;
     print_quote(quotes, index);
+}
+
+void display_all(char **quotes) {
+
 }
